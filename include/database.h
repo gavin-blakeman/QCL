@@ -1,4 +1,4 @@
-//*********************************************************************************************************************************
+﻿//*********************************************************************************************************************************
 //
 // PROJECT:							Qt Class Library (GCL)
 // FILE:								database
@@ -64,6 +64,8 @@ namespace QCL
       SQLDB_TDS,
     };
   private:
+    CDatabase() = delete;                         // Not allowed as must initialise connection name.
+
   protected:
     QString szConnectionName;                     ///< Name of the connection.
     QSqlDatabase *dBase;                          ///< Pointer to the database driver.
@@ -72,12 +74,6 @@ namespace QCL
     virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
     virtual bool createConnectionODBC(QString const &, QString const &);
     virtual bool createConnectionSQLite(QString const &, QString const &);
-
-    virtual bool ODBC() = 0;
-    virtual bool Oracle() = 0;
-    virtual bool MySQL() = 0;
-    virtual bool SQLite() = 0;
-    virtual bool PostgreSQL() = 0;
 
   public:
     class SDatabaseDriver
@@ -91,7 +87,13 @@ namespace QCL
     };
     typedef std::map<int, SDatabaseDriver> TDatabaseDriverStorage;
 
+    CDatabase(QString const &connectionName);
+
+    QString getDriverName(int driverID) const;
+    bool isDriverAvailable(int driverID) const;
+
     static TDatabaseDriverStorage databaseDrivers;
+    static void initialiseDrivers();
   };
 
   CDatabase extern database;

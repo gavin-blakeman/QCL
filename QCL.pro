@@ -35,18 +35,16 @@ unix {
   }
 }
 
-QMAKE_CXXFLAGS += -std=c++0x
+QMAKE_CXXFLAGS += -std=c++17
 
 INCLUDEPATH += \
-  "../Boost/boost 1.55.0" \
+  "../boost 1.62" \
   "../GCL" \
   "../SCL"
 
 SOURCES += \
-    Source/database.cpp \
-    Source/QCLError.cpp
+    source/database.cpp
 
 HEADERS += \
-    Include/database.h \
-    Include/QCLError.h
+    include/database.h
 

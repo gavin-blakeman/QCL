@@ -1,4 +1,4 @@
-//*********************************************************************************************************************************
+﻿//*********************************************************************************************************************************
 //
 // PROJECT:							Qt Class Library (GCL)
 // FILE:								database
@@ -29,9 +29,9 @@
 //
 //*********************************************************************************************************************************
 
-#include "../Include/database.h"
+#include "../include/database.h"
 
-#include "../Include/QCLError.h"
+#include "../include/QCLError.h"
 
 namespace QCL
 {
@@ -52,91 +52,16 @@ namespace QCL
   {
   }
 
-  /// @brief Creates a connection to the database by calling the relevant functions.
-  /// @param[in] szDatabase - Database driver string to use.
-  /// @returns true - Connection created
-  /// @returns false - The driver type is not supported.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Function created.
-
-  bool CDatabase::connectToDatabase(QString const &szDatabase)
-  {
-    bool returnValue = false;
-
-    if (szDatabase == "Oracle")
-    {
-      if (isDriverAvailable(SQLDB_QOCI))
-      {
-        Oracle();
-        returnValue = true;
-      }
-      else
-      {
-        WARNINGMESSAGE("The database driver QOCI is not available or has not been loaded.");
-      }
-    }
-    else if (szDatabase == "ODBC")
-    {
-      if (isDriverAvailable(SQLDB_ODBC))
-      {
-        returnValue = ODBC();
-      }
-      else
-      {
-        WARNINGMESSAGE("The database driver QODBC is not available or has not been loaded.");
-      };
-    }
-    else if (szDatabase == "MySQL")
-    {
-      if (isDriverAvailable(SQLDB_MYSQL))
-      {
-        returnValue = MySQL();
-      }
-      else
-      {
-        WARNINGMESSAGE("The database driver QMYSQL is not available or has not been loaded.");
-      };
-    }
-    else if (szDatabase == "SQLite")
-    {
-      if (isDriverAvailable(SQLDB_SQLITE))
-      {
-        returnValue =  SQLite();
-      }
-      else
-      {
-        WARNINGMESSAGE("The database driver QSQLITE is not available or has not been loaded.");
-      }
-    }
-    else if (szDatabase == "PostgreSQL")
-    {
-      if (isDriverAvailable(SQLDB_PSQL))
-      {
-        returnValue = PostgreSQL();
-      }
-      else
-      {
-        WARNINGMESSAGE("The database driver QPSQL is not available or has not been loaded.");
-      }
-    }
-    else
-    {
-      WARNINGMESSAGE("The database driver " + szDatabase.toStdString() + " is unknown.");
-    }
-
-    return returnValue;
-  }
-
   /// @brief Connects to the specified database.
-  /// @param[in] driverName - The name of the driver to use to connect with.
-  /// @param[in] hostName - The name or IP address of the host to connect to.
-  /// @param[in] portNumber - The number of the port to connect to on the host.
-  /// @param[in] databaseName - The name of the database to connect to.
-  /// @param[in] userName - The name of the user to connect to.
-  /// @param[in] password - The password to use when connecting.
+  /// @param[in] driverName: The name of the driver to use to connect with.
+  /// @param[in] hostName: The name or IP address of the host to connect to.
+  /// @param[in] portNumber: The number of the port to connect to on the host.
+  /// @param[in] databaseName: The name of the database to connect to.
+  /// @param[in] userName: The name of the user to connect to.
+  /// @param[in] password: The password to use when connecting.
   /// @returns true - Connection created.
   /// @returns false - Unable to create connection.
-  /// @pre 1. szConnectionName must have been set before this function is called.
+  /// @pre 1. szConnectionName must have been set before this function is called. (Should be set in constructor.)
   /// @throws
   /// @version 2017-06-19/GGB - Function created.
 
@@ -251,9 +176,10 @@ namespace QCL
 
   /// @brief Returns the requested driver name if it exists.
   /// @returns The specified driver name.
+  /// @throws None.
   /// @version 2017-07-01/GGB - Function created.
 
-  QString CDatabase::getDriverName(int driverID)
+  QString CDatabase::getDriverName(int driverID) const
   {
     return databaseDrivers[driverID].driverName;
   }
@@ -265,7 +191,7 @@ namespace QCL
   /// @throws None.
   /// @version 2017-07-01/GGB - Function created.
 
-  bool CDatabase::isDriverAvailable(int driverID)
+  bool CDatabase::isDriverAvailable(int driverID) const
   {
     return ( databaseDrivers.find(driverID) != databaseDrivers.end() );
   }
