@@ -71,7 +71,6 @@ namespace QCL
     QSqlDatabase *dBase;                          ///< Pointer to the database driver.
     GCL::sqlwriter::CSQLWriter sqlWriter;         ///< The mapped SQL writer that the instances can customise and use.
 
-    virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
     virtual bool createConnectionODBC(QString const &, QString const &);
     virtual bool createConnectionSQLite(QString const &, QString const &);
 
@@ -88,6 +87,8 @@ namespace QCL
     typedef std::map<int, SDatabaseDriver> TDatabaseDriverStorage;
 
     CDatabase(QString const &connectionName);
+
+    virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
 
     QString getDriverName(int driverID) const;
     bool isDriverAvailable(int driverID) const;
