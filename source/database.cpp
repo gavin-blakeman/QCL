@@ -31,8 +31,6 @@
 
 #include "../include/database.h"
 
-#include "../include/QCLError.h"
-
 namespace QCL
 {
   CDatabase::TDatabaseDriverStorage CDatabase::databaseDrivers;

@@ -32,7 +32,7 @@
 #ifndef QCL_DATABASE_H
 #define QCL_DATABASE_H
 
-#include <QtSql>
+#include "qt.h"
 
   // Standard header files
 
