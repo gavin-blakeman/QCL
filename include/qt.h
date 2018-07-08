@@ -57,12 +57,17 @@
 #include <QtPrintSupport/QPrintPreviewDialog>
 #ifdef QT_NETWORK_LIB
   #include <QtNetwork>
+  #include <QtNetwork/QTcpSocket>
 #endif
 #ifdef QT_SQL_LIB
   #include <QtSql>
   #include <QSqlQuery>
 #endif
 #include <QtUiTools/QUiLoader>
+#include <QtCore>
+#include <QtCore/QCoreApplication>
+#include <QSettings>
+#include <QTimer>
 #else
 #include <Qt>
 #include <QtCore/Qt>

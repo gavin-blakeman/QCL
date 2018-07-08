@@ -1,7 +1,7 @@
 ﻿//*********************************************************************************************************************************
 //
-// PROJECT:							General Class Library (GCL)
-// FILE:                GCL Include File
+// PROJECT:							Qt Class Library (GCL)
+// FILE:                QCL Include File
 // SUBSYSTEM:						Include file for the entire library
 // LANGUAGE:						C++
 // TARGET OS:						All (Standard C++)
@@ -10,36 +10,27 @@
 // AUTHOR:							Gavin Blakeman.
 // LICENSE:             GPLv2
 //
-//                      Copyright 2013-2015 Gavin Blakeman.
-//                      This file is part of the General Class Library (GCL)
+//                      Copyright 2018 Gavin Blakeman.
+//                      This file is part of the Qt Class Library (QCL)
 //
-//                      GCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
+//                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
 //                      Public License as published by the Free Software Foundation, either version 2 of the License, or
 //                      (at your option) any later version.
 //
-//                      GCL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+//                      QCL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
 //                      implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
 //                      for more details.
 //
-//                      You should have received a copy of the GNU General Public License along with GCL.  If not,
+//                      You should have received a copy of the GNU General Public License along with QCL.  If not,
 //                      see <http://www.gnu.org/licenses/>.
 //
-// OVERVIEW:            This is the include file that includes all the modules in the GCL library.
+// OVERVIEW:            This is the include file that includes all the modules in the QCL library.
 //
 // CLASSES INCLUDED:    None
 //
-// HISTORY:             2013-01-26 GGB Development of classes for application AIRDAS.
+// HISTORY:             2018-06-28/GGB - File created.
 //
 //*********************************************************************************************************************************
 
-#include "Include/logger/LoggerCore.h"
-#include "Include/logger/FileSink.h"
-#include "Include/logger/StreamSink.h"
-#include "Include/Functions.h"
-#include "Include/GCLError.h"
-#include "Include/MappedSQLWriter.h"
-#include "Include/Resource.h"
-
-#ifdef QT_VERSION
-#include "Include/logger/TextEditSink.h"
-#endif
+#include "include/database.h"
+#include "include/qt.h"

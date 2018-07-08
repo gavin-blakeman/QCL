@@ -50,5 +50,6 @@ SOURCES += \
 
 HEADERS += \
     include/database.h \
-    include/qt.h
+    include/qt.h \
+    QCL
 
