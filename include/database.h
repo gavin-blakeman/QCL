@@ -89,6 +89,7 @@ namespace QCL
     CDatabase(QString const &connectionName);
 
     virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
+    virtual void closeConnection();
 
     QString getDriverName(int driverID) const;
     bool isDriverAvailable(int driverID) const;

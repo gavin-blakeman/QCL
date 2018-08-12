@@ -50,6 +50,19 @@ namespace QCL
   {
   }
 
+  /// @brief Closes an open connection.
+  /// @throws None.
+  /// @note 1. If the database connection is already closed, then the function does nothing.
+  /// @version 2018-08-12/GGB - Function created.
+
+  void CDatabase::closeConnection()
+  {
+    if (dBase->isOpen())
+    {
+      dBase->close();
+    };
+  }
+
   /// @brief Connects to the specified database.
   /// @param[in] driverName: The name of the driver to use to connect with.
   /// @param[in] hostName: The name or IP address of the host to connect to.
@@ -80,6 +93,7 @@ namespace QCL
     dBase->setPort(portNumber);
 
       // Attempt to open the database and if there is an error, throw an exception.
+
 
     if ( !dBase->open() )
     {
