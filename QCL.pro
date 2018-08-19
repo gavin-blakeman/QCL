@@ -8,7 +8,6 @@ TARGET = QCL
 TEMPLATE = lib
 CONFIG += staticlib
 
-#QT -= core gui
 QT += sql
 
 QMAKE_CXXFLAGS += -std=c++17 -static -static-libgcc #-save-temps=obj
@@ -43,6 +42,7 @@ QMAKE_CXXFLAGS += -std=c++17
 INCLUDEPATH += \
   "../boost 1.62" \
   "../GCL" \
+  "../MCL" \
   "../SCL"
 
 SOURCES += \
