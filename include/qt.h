@@ -50,6 +50,46 @@
 #if QT_VERSION >= 0x050000
 #ifdef QT_GUI_LIB
   #include <QtGui>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDateEdit>
+#include <QtWidgets/QDateTimeEdit>
+#include <QtWidgets/QDialog>
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QFileDialog>
+#include <QtWidgets/QDockWidget>
+#include <QtWidgets/QGraphicsScene>
+#include <QtWidgets/QGraphicsItemGroup>
+#include <QtWidgets/QGraphicsPixmapItem>
+#include <QtWidgets/QGraphicsSimpleTextItem>
+#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListWidget>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QMdiArea>
+#include <QtWidgets/QMdiSubWindow>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QPlainTextEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QSlider>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QSplashScreen>
+#include <QtWidgets/QStackedWidget>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableWidget>
+#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QTextBrowser>
+#include <QtWidgets/QToolBar>
 #endif
 #include <QtPlugin>
 #include <QtPrintSupport/QPrinter>
@@ -85,21 +125,22 @@
 #pragma warning(pop)
 #endif
 
-  /// @def ASSOCIATE_CONTROL(WIDGET, CONTROL, TYPE)
-  /// This macro is used for associating controls in dialogs or similar with a variable.
-  /// @param[in] WIDGET - The widget that contains the code.
-  /// @param[in] CONTROL - The control and variable name. The control name is always assumed to be the same as the variable name.
-  /// @param[in] TYPE - The Qt type of the control (QCheckBox etc)
-  /// @version 2015-09-22/GGB - Macro created.
+/// @def ASSOCIATE_CONTROL(WIDGET, CONTROL, TYPE)
+/// This macro is used for associating controls in dialogs or similar with a variable.
+/// @param[in] WIDGET - The widget that contains the code.
+/// @param[in] CONTROL - The control and variable name. The control name is always assumed to be the same as the variable name.
+/// @param[in] TYPE - The Qt type of the control (QCheckBox etc)
+/// @version 2015-09-22/GGB - Macro created.
 
 #define ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, TYPE) \
-  POINTERNAME = WIDGET->findChild<TYPE *>(CONTROLNAME); \
-  RUNTIME_ASSERT(astroManager, POINTERNAME, "Control "#CONTROLNAME" not found." );
+POINTERNAME = WIDGET->findChild<TYPE *>(CONTROLNAME); \
+RUNTIME_ASSERT(astroManager, POINTERNAME, "Control "#CONTROLNAME" not found." );
 
 #define ASSOCIATE_LABEL(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QLabel)
 #define ASSOCIATE_RADIOBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QRadioButton)
 #define ASSOCIATE_PUSHBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QPushButton)
 #define ASSOCIATE_SPINBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QSpinBox)
 #define ASSOCIATE_TABLEVIEW(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableView)
+#define ASSOCIATE_TABLEWIDGET(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableWidget)
 
 #endif // QT_H_H
