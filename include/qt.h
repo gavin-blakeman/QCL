@@ -1,6 +1,6 @@
 ﻿//**********************************************************************************************************************************
 //
-// PROJECT:             AstroManager
+// PROJECT:             QCL
 // FILE:			          Qt
 // SUBSYSTEM:           Qt headers
 // TARGET OS:	          WINDOWS, LINUX, UNIX, MAC
@@ -9,17 +9,17 @@
 // LICENSE:             GPLv2
 //
 //                      Copyright 2015-2018 Gavin Blakeman.
-//                      This file is part of the Astronomy Manager software (astroManager)
+//                      This file is part of the Qt Class Library (QCL)
 //
-//                      astroManager is free software: you can redistribute it and/or modify it under the terms of the GNU General
+//                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
 //                      Public License as published by the Free Software Foundation, either version 2 of the License, or (at your
 //                      option) any later version.
 //
-//                      astroManager is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+//                      QCL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
 //                      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
 //                      License for more details.
 //
-//                      You should have received a copy of the GNU General Public License along with astroManager.  If not,
+//                      You should have received a copy of the GNU General Public License along with QCL.  If not,
 //                      see <http://www.gnu.org/licenses/>.
 //
 // OVERVIEW:	          Header files for Qt
@@ -101,6 +101,7 @@
 #include <QtNetwork/QtNetwork>
 //#include <QNetworkAccessManager>
 #include <QtSql>
+#include <QtSql/QSqlError>
 #include <QtUiTools/QUiLoader>
 #else
 #include <Qt>

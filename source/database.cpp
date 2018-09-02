@@ -1,38 +1,58 @@
 ﻿//*********************************************************************************************************************************
 //
-// PROJECT:							Qt Class Library (GCL)
-// FILE:								database
-// SUBSYSTEM:						Generic Database Class for Qt
+// PROJECT:             Qt Class Library
+// FILE:			          database
+// SUBSYSTEM:           database Support Functions
 // TARGET OS:	          WINDOWS, LINUX, UNIX, MAC
+// LIBRARY DEPENDANCE:	Qt
+// NAMESPACE:						QCL
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2015, 2018 Gavin Blakeman.
+//                      Copyright 2012-2018 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
-//                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
-//                      License as published by the Free Software Foundation, either version 2 of the License, or (at your option)
-//                      any later version.
+//                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
+//                      Public License as published by the Free Software Foundation, either version 2 of the License, or (at your
+//                      option) any later version.
 //
-//                      QCL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-//                      warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-//                      more details.
+//                      QCL is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+//                      the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+//                      License for more details.
 //
 //                      You should have received a copy of the GNU General Public License along with QCL.  If not,
 //                      see <http://www.gnu.org/licenses/>.
+//
+// OVERVIEW:            Database support functions.
 //
 // CLASSES INCLUDED:    CDatabase
 //
 // HIERARCHY:           CDatabase
 //
-// HISTORY:             2015-03-29 GGB - File Created
+// HISTORY:             2018-09-02 GGB - astroManager database class merged and migrated to QCL database class.
+//                      2018-04-13 GGB - Project Name changed to astroManager.
+//                      2015-09-22 GGB - astroManager 2015.09 release
+//                      2013-05-15 GGB - Split CDatabaseWeather into own file.
+//                      2013-03-22 GGB - astroManager 2013.03 release.
+//                      2013-02-24 GGB - Split CATID into it's own file
+//                      2013-01-20 GGB - astroManager 0000.00 release.
+//                      2012-01-04 GGB - Classes developed for astroManager
 //
 //*********************************************************************************************************************************
 
 #include "../include/database.h"
 
+  // QCL Library header files
+
+#include "../include/qt.h"
+
+  // Miscellaneous library header files.
+
+#include <boost/algorithm/string.hpp>
+
 namespace QCL
 {
+
   CDatabase::TDatabaseDriverStorage CDatabase::databaseDrivers;
 
   //*****************************************************************************************************************************
@@ -42,7 +62,7 @@ namespace QCL
   //*****************************************************************************************************************************
 
   /// @brief Constructor for the database class.
-  /// @param[in] connectionName - The name of the connection associated with the database.
+  /// @param[in] connectionName: The name of the connection associated with the database.
   /// @throws None
   /// @version 2017-06-20/GGB - Function created.
 
@@ -50,29 +70,91 @@ namespace QCL
   {
   }
 
-  /// @brief Closes an open connection.
+  /// @brief Creates a connection to the database by calling the relevant functions.
+  /// @param[in] szDatabase: Database driver string to use.
+  /// @returns true - Connection created
+  /// @returns false - The driver type is not supported.
   /// @throws None.
-  /// @note 1. If the database connection is already closed, then the function does nothing.
-  /// @version 2018-08-12/GGB - Function created.
+  /// @version 2017-07-01/GGB - Function created.
 
-  void CDatabase::closeConnection()
+  bool CDatabase::connectToDatabase(QString const &szDatabase)
   {
-    if (dBase->isOpen())
+    bool returnValue = false;
+
+    if (szDatabase == "Oracle")
     {
-      dBase->close();
-    };
+      if (isDriverAvailable(SQLDB_QOCI))
+      {
+        Oracle();
+        returnValue = true;
+      }
+      else
+      {
+        WARNINGMESSAGE("The database driver QOCI is not available or has not been loaded.");
+      }
+    }
+    else if (szDatabase == "ODBC")
+    {
+      if (isDriverAvailable(SQLDB_ODBC))
+      {
+        returnValue = ODBC();
+      }
+      else
+      {
+        WARNINGMESSAGE("The database driver QODBC is not available or has not been loaded.");
+      };
+    }
+    else if (szDatabase == "MySQL")
+    {
+      if (isDriverAvailable(SQLDB_MYSQL))
+      {
+        returnValue = MySQL();
+      }
+      else
+      {
+        WARNINGMESSAGE("The database driver QMYSQL is not available or has not been loaded.");
+      };
+    }
+    else if (szDatabase == "SQLite")
+    {
+      if (isDriverAvailable(SQLDB_SQLITE))
+      {
+        returnValue =  SQLite();
+      }
+      else
+      {
+        WARNINGMESSAGE("The database driver QSQLITE is not available or has not been loaded.");
+      }
+    }
+    else if (szDatabase == "PostgreSQL")
+    {
+      if (isDriverAvailable(SQLDB_PSQL))
+      {
+        returnValue = PostgreSQL();
+      }
+      else
+      {
+        WARNINGMESSAGE("The database driver QPSQL is not available or has not been loaded.");
+      }
+    }
+    else
+    {
+      WARNINGMESSAGE("The database driver " + szDatabase.toStdString() + " is unknown.");
+    }
+
+    return returnValue;
   }
 
   /// @brief Connects to the specified database.
-  /// @param[in] driverName: The name of the driver to use to connect with.
-  /// @param[in] hostName: The name or IP address of the host to connect to.
-  /// @param[in] portNumber: The number of the port to connect to on the host.
-  /// @param[in] databaseName: The name of the database to connect to.
-  /// @param[in] userName: The name of the user to connect to.
-  /// @param[in] password: The password to use when connecting.
+  /// @param[in] driverName - The name of the driver to use to connect with.
+  /// @param[in] hostName - The name or IP address of the host to connect to.
+  /// @param[in] portNumber - The number of the port to connect to on the host.
+  /// @param[in] databaseName - The name of the database to connect to.
+  /// @param[in] userName - The name of the user to connect to.
+  /// @param[in] password - The password to use when connecting.
   /// @returns true - Connection created.
   /// @returns false - Unable to create connection.
-  /// @pre 1. szConnectionName must have been set before this function is called. (Should be set in constructor.)
+  /// @pre 1. szConnectionName must have been set before this function is called.
   /// @throws
   /// @version 2017-06-19/GGB - Function created.
 
@@ -82,7 +164,7 @@ namespace QCL
   {
     bool returnValue = false;
 
-      // Create the database instance and setup the connection strings.
+    // Create the database instance and setup the connection strings.
 
     dBase = new QSqlDatabase();
     (*dBase) = QSqlDatabase::addDatabase(driverName, szConnectionName);
@@ -92,13 +174,12 @@ namespace QCL
     dBase->setPassword(password);
     dBase->setPort(portNumber);
 
-      // Attempt to open the database and if there is an error, throw an exception.
-
+    // Attempt to open the database and if there is an error, throw an exception.
 
     if ( !dBase->open() )
     {
       QSqlError error = dBase->lastError();     // 1045 - Access denied
-                                                // 2005 - Unable to connect
+      // 2005 - Unable to connect
 
       ERRORMESSAGE("Error while connecting to Database: " + hostName.toStdString() + "." + databaseName.toStdString());
       ERRORMESSAGE("Error returned by Driver: " + error.nativeErrorCode().toStdString());
@@ -188,10 +269,9 @@ namespace QCL
 
   /// @brief Returns the requested driver name if it exists.
   /// @returns The specified driver name.
-  /// @throws None.
   /// @version 2017-07-01/GGB - Function created.
 
-  QString CDatabase::getDriverName(int driverID) const
+  QString CDatabase::getDriverName(int driverID)
   {
     return databaseDrivers[driverID].driverName;
   }
@@ -203,7 +283,7 @@ namespace QCL
   /// @throws None.
   /// @version 2017-07-01/GGB - Function created.
 
-  bool CDatabase::isDriverAvailable(int driverID) const
+  bool CDatabase::isDriverAvailable(int driverID)
   {
     return ( databaseDrivers.find(driverID) != databaseDrivers.end() );
   }
@@ -214,7 +294,7 @@ namespace QCL
 
   void CDatabase::initialiseDrivers()
   {
-      // Only load the relevant database drivers.
+    // Only load the relevant database drivers.
 
     QStringList driverList = QSqlDatabase::drivers();
 
@@ -246,5 +326,18 @@ namespace QCL
     };
   }
 
+  /// @brief Processes and displays the error information.
+  /// @throws None.
+  /// @version 2017-08-13/GGB - FUnction created.
 
-} // namespace QCL
+  void CDatabase::processErrorInformation() const
+  {
+    QSqlError error = sqlQuery->lastError();
+
+    ERRORMESSAGE("Error while executing query: " + sqlWriter.string());
+    ERRORMESSAGE("Error returned by Driver: " + error.nativeErrorCode().toStdString());
+    ERRORMESSAGE("Text returned by driver: " + error.driverText().toStdString());
+    ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
+  }
+
+}	// namespace QCL
