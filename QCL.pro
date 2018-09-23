@@ -46,10 +46,12 @@ INCLUDEPATH += \
   "../SCL"
 
 SOURCES += \
-    source/database.cpp
+    source/database.cpp \
+    source/common.cpp
 
 HEADERS += \
     include/database.h \
     include/qt.h \
-    QCL
+    QCL \
+    include/common.h
 
