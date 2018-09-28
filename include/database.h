@@ -126,6 +126,8 @@ namespace QCL
     inline QSqlDatabase &database() { return *dBase;}
 
     virtual bool connectToDatabase(QString const &);
+
+    void readMapFile(boost::filesystem::path const &mfn);
   };
 
 } // namespace QCL

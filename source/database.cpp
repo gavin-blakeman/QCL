@@ -340,4 +340,15 @@ namespace QCL
     ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
   }
 
+  /// @brief Overloaded readMapFile().
+  /// @param[in] mfn: Map file name.
+  /// @throws
+  /// @version 2018-09-28/GGB - Moved into CDatabase.
+  /// @version 2013-01-26/GGB - Function created.
+
+  void CDatabase::readMapFile(boost::filesystem::path const &mfn)
+  {
+    sqlWriter.readMapFile(mfn);
+  }
+
 }	// namespace QCL
