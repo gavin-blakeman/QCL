@@ -91,7 +91,7 @@ namespace QCL
     QString szConnectionName;                     ///< Name of the connection.
     QSqlDatabase *dBase;                          ///< Pointer to the database driver.
     std::unique_ptr<QSqlQuery> sqlQuery;
-    GCL::sqlwriter::CSQLWriter sqlWriter;         ///< The mapped SQL writer that the instances can customise and use.
+    GCL::sqlWriter sqlWriter;         ///< The mapped SQL writer that the instances can customise and use.
 
     virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
     virtual bool createConnectionODBC(QString const &, QString const &);
