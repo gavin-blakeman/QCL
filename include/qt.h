@@ -8,7 +8,7 @@
 // AUTHOR:              Gavin Blakeman
 // LICENSE:             GPLv2
 //
-//                      Copyright 2015-2018 Gavin Blakeman.
+//                      Copyright 2015-2020 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -129,7 +129,7 @@
 
 #define ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, TYPE) \
   POINTERNAME = WIDGET->findChild<TYPE *>(CONTROLNAME); \
-  RUNTIME_ASSERT(astroManager, POINTERNAME, "Control "#CONTROLNAME" not found." );
+  RUNTIME_ASSERT(POINTERNAME, "Control "#CONTROLNAME" not found." );
 
 #define ASSOCIATE_LABEL(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QLabel)
 #define ASSOCIATE_LINEEDIT(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QLineEdit)
