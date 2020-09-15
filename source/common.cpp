@@ -9,7 +9,7 @@
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2018 Gavin Blakeman.
+//                      Copyright 2018-2020 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -35,7 +35,7 @@
 //
 //*********************************************************************************************************************************
 
-#include "../include/common.h"
+#include "include/common.h"
 
   // Standard C++ library header files
 
@@ -52,12 +52,12 @@ namespace SCL
 
   unsigned int const QCL_MAJORVERSION = 2018;           ///< The Major version number (yyyy)
   unsigned int const QCL_MINORVERSION = 9;              ///< The Minor version number (mm)
-  unsigned int const QCL_BUILDNUMBER  = 0x005F;         ///< The build numnber - incremented on each build.
+  unsigned int const QCL_BUILDNUMBER  = 0x00CC;         ///< The build numnber - incremented on each build.
 
-  /// @brief Returns the library version and build number that was used for editing the library.
-  /// @returns A string with the application name, version, build.
-  /// @throws Nothing.
-  /// @version 2018-09-22/GGB - Function created.
+  /// @brief        Returns the library version and build number that was used for editing the library.
+  /// @returns      A string with the application name, version, build.
+  /// @throws       Nothing.
+  /// @version      2018-09-22/GGB - Function created.
 
   std::string getVersionString()
   {

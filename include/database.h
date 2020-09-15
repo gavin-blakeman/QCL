@@ -9,7 +9,7 @@
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2012-2018 Gavin Blakeman.
+//                      Copyright 2012-2020 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -50,13 +50,9 @@
 #include <memory>
 #include <string>
 
-  // QCL Library header files.
-
-//#include "../error.h"
-#include "qt.h"
-
   // Miscellaneous header files.
 
+#include "qt.h"
 #include <GCL>
 #include <QCL>
 

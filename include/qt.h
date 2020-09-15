@@ -48,6 +48,7 @@
 #include <Qt>
 
 #if QT_VERSION >= 0x050000
+#include <QAbstractTableModel>
 #include <QDateTime>
 #include <QtPlugin>
 #include <QtPrintSupport/QPrinter>

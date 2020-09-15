@@ -9,7 +9,7 @@
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2012-2018 Gavin Blakeman.
+//                      Copyright 2012-2020 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -40,15 +40,16 @@
 //
 //*********************************************************************************************************************************
 
-#include "../include/database.h"
+#include "include/database.h"
 
   // QCL Library header files
 
-#include "../include/qt.h"
+#include "include/qt.h"
 
   // Miscellaneous library header files.
 
 #include <boost/algorithm/string.hpp>
+#include "boost/locale.hpp"
 
 namespace QCL
 {
@@ -90,7 +91,7 @@ namespace QCL
       }
       else
       {
-        WARNINGMESSAGE("The database driver QOCI is not available or has not been loaded.");
+        WARNINGMESSAGE(boost::locale::translate("The database driver QOCI is not available or has not been loaded."));
       }
     }
     else if (szDatabase == "ODBC")
@@ -101,7 +102,7 @@ namespace QCL
       }
       else
       {
-        WARNINGMESSAGE("The database driver QODBC is not available or has not been loaded.");
+        WARNINGMESSAGE(boost::locale::translate("The database driver QODBC is not available or has not been loaded."));
       };
     }
     else if (szDatabase == "MySQL")
@@ -112,7 +113,7 @@ namespace QCL
       }
       else
       {
-        WARNINGMESSAGE("The database driver QMYSQL is not available or has not been loaded.");
+        WARNINGMESSAGE(boost::locale::translate("The database driver QMYSQL is not available or has not been loaded."));
       };
     }
     else if (szDatabase == "SQLite")
@@ -123,7 +124,7 @@ namespace QCL
       }
       else
       {
-        WARNINGMESSAGE("The database driver QSQLITE is not available or has not been loaded.");
+        WARNINGMESSAGE(boost::locale::translate("The database driver QSQLITE is not available or has not been loaded."));
       }
     }
     else if (szDatabase == "PostgreSQL")
@@ -134,7 +135,7 @@ namespace QCL
       }
       else
       {
-        WARNINGMESSAGE("The database driver QPSQL is not available or has not been loaded.");
+        WARNINGMESSAGE(boost::locale::translate("The database driver QPSQL is not available or has not been loaded."));
       }
     }
     else
@@ -145,18 +146,18 @@ namespace QCL
     return returnValue;
   }
 
-  /// @brief Connects to the specified database.
-  /// @param[in] driverName - The name of the driver to use to connect with.
-  /// @param[in] hostName - The name or IP address of the host to connect to.
-  /// @param[in] portNumber - The number of the port to connect to on the host.
-  /// @param[in] databaseName - The name of the database to connect to.
-  /// @param[in] userName - The name of the user to connect to.
-  /// @param[in] password - The password to use when connecting.
-  /// @returns true - Connection created.
-  /// @returns false - Unable to create connection.
-  /// @pre 1. szConnectionName must have been set before this function is called.
+  /// @brief        Connects to the specified database.
+  /// @param[in]    driverName: The name of the driver to use to connect with.
+  /// @param[in]    hostName: The name or IP address of the host to connect to.
+  /// @param[in]    portNumber: The number of the port to connect to on the host.
+  /// @param[in]    databaseName: The name of the database to connect to.
+  /// @param[in]    userName: The name of the user to connect to.
+  /// @param[in]    password: The password to use when connecting.
+  /// @returns      true - Connection created.
+  /// @returns      false - Unable to create connection.
+  /// @pre          1. szConnectionName must have been set before this function is called.
   /// @throws
-  /// @version 2017-06-19/GGB - Function created.
+  /// @version      2017-06-19/GGB - Function created.
 
   bool CDatabase::createConnection(QString const &driverName, QString const &hostName, std::uint16_t portNumber,
                                    QString const &databaseName,
@@ -181,29 +182,29 @@ namespace QCL
       QSqlError error = dBase->lastError();     // 1045 - Access denied
       // 2005 - Unable to connect
 
-      ERRORMESSAGE("Error while connecting to Database: " + hostName.toStdString() + "." + databaseName.toStdString());
-      ERRORMESSAGE("Error returned by Driver: " + error.nativeErrorCode().toStdString());
-      ERRORMESSAGE("Text returned by driver: " + error.driverText().toStdString());
-      ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error while connecting to Database: ").str() + hostName.toStdString() + "." + databaseName.toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error returned by Driver: ").str() + error.nativeErrorCode().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by driver: ").str() + error.driverText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by database: ").str() + error.databaseText().toStdString());
     }
     else
     {
-      INFOMESSAGE("Connected to MySQL Database: " + hostName.toStdString() + "." + databaseName.toStdString());
+      INFOMESSAGE(boost::locale::translate("Connected to MySQL Database: ").str() + hostName.toStdString() + "." + databaseName.toStdString());
       returnValue = true;
     }
 
     return returnValue;
   }
 
-  /// @brief Connects to a specified ODBC database driver
-  /// @param[in] driverName - The driver to use for the connection.
-  /// @param[in] databaseName - The name of the database to open.
-  /// @returns true - Connection created.
-  /// @returns false - Connection not created.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Return type changed from void to bool.
-  /// @pre 1. szConnectionName must have been set before this function is called
-  /// @version 2017-06-20/GGB - Function created.
+  /// @brief        Connects to a specified ODBC database driver
+  /// @param[in]    driverName: The driver to use for the connection.
+  /// @param[in]    databaseName: The name of the database to open.
+  /// @returns      true - Connection created.
+  /// @returns      false - Connection not created.
+  /// @throws       None.
+  /// @version      2017-07-01/GGB - Return type changed from void to bool.
+  /// @pre          1. szConnectionName must have been set before this function is called
+  /// @version      2017-06-20/GGB - Function created.
 
   bool CDatabase::createConnectionODBC(QString const &driverName, QString const &databaseName)
   {
@@ -217,29 +218,29 @@ namespace QCL
     {
       QSqlError error = dBase->lastError();
 
-      ERRORMESSAGE("Error while connecting to ODBC Database: " + databaseName.toStdString());
-      ERRORMESSAGE("Error returned by ODBC Driver: " + error.nativeErrorCode().toStdString());
-      ERRORMESSAGE("Text returned by driver: " + error.driverText().toStdString());
-      ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error while connecting to ODBC Database: ").str() + databaseName.toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error returned by ODBC Driver: ").str() + error.nativeErrorCode().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by driver: ").str() + error.driverText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by database: ").str() + error.databaseText().toStdString());
     }
     else
     {
-      INFOMESSAGE("Connected to ODBC Database: " + databaseName.toStdString());
+      INFOMESSAGE(boost::locale::translate("Connected to ODBC Database: ").str() + databaseName.toStdString());
       returnValue = true;
     };
 
     return returnValue;
   }
 
-  /// @brief Connect to a specified SQLite database.
-  /// @param[in] driverName - The name of the driver to use for the connection.
-  /// @param[in] databaseName - The name of the database to connect to.
-  /// @returns true - Connection created.
-  /// @returns false - Connection not created.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Return type changed from void to bool.
-  /// @pre 1. szConnectionName must have been set before this function is called
-  /// @version 2017-06=-20/GGB - Function created.
+  /// @brief        Connect to a specified SQLite database.
+  /// @param[in]    driverName: The name of the driver to use for the connection.
+  /// @param[in]    databaseName: The name of the database to connect to.
+  /// @returns      true - Connection created.
+  /// @returns      false - Connection not created.
+  /// @throws       None.
+  /// @version      2017-07-01/GGB - Return type changed from void to bool.
+  /// @pre          1. szConnectionName must have been set before this function is called
+  /// @version      2017-06-20/GGB - Function created.
 
   bool CDatabase::createConnectionSQLite(QString const &driverName, QString const &databaseName)
   {
@@ -253,44 +254,44 @@ namespace QCL
     {
       QSqlError error = dBase->lastError();
 
-      ERRORMESSAGE("Error while connecting to SQLite Database: " + databaseName.toStdString());
-      ERRORMESSAGE("Error returned by SQLLite Driver: " + error.nativeErrorCode().toStdString());
-      ERRORMESSAGE("Text returned by driver: " + error.driverText().toStdString());
-      ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error while connecting to SQLite Database: ").str() + databaseName.toStdString());
+      ERRORMESSAGE(boost::locale::translate("Error returned by SQLLite Driver: ").str() + error.nativeErrorCode().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by driver: ").str() + error.driverText().toStdString());
+      ERRORMESSAGE(boost::locale::translate("Text returned by database: ").str() + error.databaseText().toStdString());
     }
     else
     {
-      INFOMESSAGE("Connected to SQLite Database: " + databaseName.toStdString());
+      INFOMESSAGE(boost::locale::translate("Connected to SQLite Database: ").str() + databaseName.toStdString());
       returnValue = true;
     };
 
     return returnValue;
   }
 
-  /// @brief Returns the requested driver name if it exists.
-  /// @returns The specified driver name.
-  /// @version 2017-07-01/GGB - Function created.
+  /// @brief        Returns the requested driver name if it exists.
+  /// @returns      The specified driver name.
+  /// @version      2017-07-01/GGB - Function created.
 
   QString CDatabase::getDriverName(int driverID)
   {
     return databaseDrivers[driverID].driverName;
   }
 
-  /// @brief Determines if a driver is available and been loaded.
-  /// @param[in] driverID - The ID value of the driver to check.
-  /// @returns true - SQL Driver is available
-  /// @returns false - SQL Driver is not available.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Function created.
+  /// @brief        Determines if a driver is available and been loaded.
+  /// @param[in]    driverID: The ID value of the driver to check.
+  /// @returns      true - SQL Driver is available
+  /// @returns      false - SQL Driver is not available.
+  /// @throws       None.
+  /// @version      2017-07-01/GGB - Function created.
 
   bool CDatabase::isDriverAvailable(int driverID)
   {
     return ( databaseDrivers.find(driverID) != databaseDrivers.end() );
   }
 
-  /// @brief initialises the list of drivers available for use.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Function created.
+  /// @brief        Initialises the list of drivers available for use.
+  /// @throws       None.
+  /// @version      2017-07-01/GGB - Function created.
 
   void CDatabase::initialiseDrivers()
   {
@@ -301,50 +302,51 @@ namespace QCL
     if (driverList.contains("QMYSQL"))
     {
       databaseDrivers.insert(std::pair<int, SDatabaseDriver>(SQLDB_MYSQL, SDatabaseDriver("MySQL", "QMYSQL")));
-      INFOMESSAGE("Enabling MySQL DBMS Support");
+      INFOMESSAGE(boost::locale::translate("Enabling MySQL DBMS Support"));
 
     };
     if (driverList.contains("QOCI"))
     {
       databaseDrivers.insert(std::pair<int, SDatabaseDriver>(SQLDB_QOCI, SDatabaseDriver("Oracle", "QOCI")));
-      INFOMESSAGE("Enabling Oracle DBMS Support");
+      INFOMESSAGE(boost::locale::translate("Enabling Oracle DBMS Support"));
     };
     if (driverList.contains("QSQLITE"))
     {
       databaseDrivers.insert(std::pair<int, SDatabaseDriver>(SQLDB_SQLITE, SDatabaseDriver("SQLite", "QSQLITE")));
-      INFOMESSAGE("Enabling SQLite DBMS Support");
+      INFOMESSAGE(boost::locale::translate("Enabling SQLite DBMS Support"));
     };
     if (driverList.contains("QPSQL"))
     {
       databaseDrivers.insert(std::pair<int, SDatabaseDriver>(SQLDB_PSQL, SDatabaseDriver("PostgreSQL", "QPSQL")));
-      INFOMESSAGE("Enabling Postgre DBMS Support");
+      INFOMESSAGE(boost::locale::translate("Enabling Postgre DBMS Support"));
     };
     if (driverList.contains("QODBC"))
     {
       databaseDrivers.insert(std::pair<int, SDatabaseDriver>(SQLDB_ODBC, SDatabaseDriver("ODBC", "QODBC")));
-      INFOMESSAGE("Enabling ODBC DBMS Support");
+      INFOMESSAGE(boost::locale::translate("Enabling ODBC DBMS Support"));
     };
   }
 
-  /// @brief Processes and displays the error information.
-  /// @throws None.
-  /// @version 2017-08-13/GGB - FUnction created.
+  /// @brief    Processes and displays the error information.
+  /// @throws   None.
+  /// @version  2020-09-09/GGB - Added parameter error.
+  /// @version  2017-08-13/GGB - FUnction created.
 
   void CDatabase::processErrorInformation() const
   {
-    QSqlError error = sqlQuery->lastError();
+    auto error = sqlQuery->lastError();
 
-    ERRORMESSAGE("Error while executing query: " + sqlWriter.string());
-    ERRORMESSAGE("Error returned by Driver: " + error.nativeErrorCode().toStdString());
-    ERRORMESSAGE("Text returned by driver: " + error.driverText().toStdString());
-    ERRORMESSAGE("Text returned by database: " + error.databaseText().toStdString());
+    ERRORMESSAGE(boost::locale::translate("Error while executing query: ").str() + sqlWriter.string());
+    ERRORMESSAGE(boost::locale::translate("Error returned by Driver: ").str() + error.nativeErrorCode().toStdString());
+    ERRORMESSAGE(boost::locale::translate("Text returned by driver: ").str() + error.driverText().toStdString());
+    ERRORMESSAGE(boost::locale::translate("Text returned by database: ").str() + error.databaseText().toStdString());
   }
 
-  /// @brief Overloaded readMapFile().
-  /// @param[in] mfn: Map file name.
+  /// @brief      Overloaded readMapFile().
+  /// @param[in]  mfn: Map file name.
   /// @throws
-  /// @version 2018-09-28/GGB - Moved into CDatabase.
-  /// @version 2013-01-26/GGB - Function created.
+  /// @version    2018-09-28/GGB - Moved into CDatabase.
+  /// @version    2013-01-26/GGB - Function created.
 
   void CDatabase::readMapFile(boost::filesystem::path const &mfn)
   {
