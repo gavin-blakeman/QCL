@@ -180,7 +180,7 @@ namespace QCL
     if ( !dBase->open() )
     {
       QSqlError error = dBase->lastError();     // 1045 - Access denied
-      // 2005 - Unable to connect
+                                                // 2005 - Unable to connect
 
       ERRORMESSAGE(boost::locale::translate("Error while connecting to Database: ").str() + hostName.toStdString() + "." + databaseName.toStdString());
       ERRORMESSAGE(boost::locale::translate("Error returned by Driver: ").str() + error.nativeErrorCode().toStdString());
@@ -329,12 +329,12 @@ namespace QCL
 
   /// @brief    Processes and displays the error information.
   /// @throws   None.
-  /// @version  2020-09-09/GGB - Added parameter error.
+  /// @version  2020-09-09/GGB - Added parameter sqlQuery.
   /// @version  2017-08-13/GGB - FUnction created.
 
-  void CDatabase::processErrorInformation() const
+  void CDatabase::processErrorInformation(QSqlQuery const &sqlQuery) const
   {
-    auto error = sqlQuery->lastError();
+    QSqlError error = sqlQuery.lastError();
 
     ERRORMESSAGE(boost::locale::translate("Error while executing query: ").str() + sqlWriter.string());
     ERRORMESSAGE(boost::locale::translate("Error returned by Driver: ").str() + error.nativeErrorCode().toStdString());

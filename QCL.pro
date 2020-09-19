@@ -47,11 +47,13 @@ INCLUDEPATH += \
 
 SOURCES += \
     source/database.cpp \
-    source/common.cpp
+    source/common.cpp \
+    source/dialog.cpp
 
 HEADERS += \
     include/database.h \
     include/qt.h \
     QCL \
-    include/common.h
+    include/common.h \
+    include/dialog.h
 

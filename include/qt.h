@@ -76,6 +76,7 @@
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -93,6 +94,7 @@
 #include <QtWidgets/QSplashScreen>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QTextEdit>
@@ -123,8 +125,8 @@
 
   /// @def ASSOCIATE_CONTROL(WIDGET, CONTROL, TYPE)
   /// This macro is used for associating controls in dialogs or similar with a variable.
-  /// @param[in] WIDGET - The widget that contains the code.
-  /// @param[in] CONTROL - The control and variable name. The control name is always assumed to be the same as the variable name.
+  /// @param[in] WIDGET: The widget that contains the code.
+  /// @param[in] CONTROL: The control and variable name. The control name is always assumed to be the same as the variable name.
   /// @param[in] TYPE - The Qt type of the control (QCheckBox etc)
   /// @version 2015-09-22/GGB - Macro created.
 
@@ -132,12 +134,16 @@
   POINTERNAME = WIDGET->findChild<TYPE *>(CONTROLNAME); \
   RUNTIME_ASSERT(POINTERNAME, "Control "#CONTROLNAME" not found." );
 
+#define ASSOCIATE_CHECKBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QCheckBox)
+#define ASSOCIATE_COMBOBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QComboBox)
+#define ASSOCIATE_DOUBLESPINBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QDoubleSpinBox)
 #define ASSOCIATE_LABEL(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QLabel)
 #define ASSOCIATE_LINEEDIT(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QLineEdit)
-#define ASSOCIATE_RADIOBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QRadioButton)
+#define ASSOCIATE_LISTWIDGET(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QListWidget)
 #define ASSOCIATE_PUSHBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QPushButton)
+#define ASSOCIATE_RADIOBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QRadioButton)
 #define ASSOCIATE_SPINBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QSpinBox)
 #define ASSOCIATE_TABLEVIEW(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableView)
 #define ASSOCIATE_TABLEWIDGET(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableWidget)
 
-#endif // QT_H_H
+#endif // QT_H

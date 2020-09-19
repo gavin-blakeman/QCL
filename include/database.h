@@ -87,7 +87,7 @@ namespace QCL
     QString szConnectionName;                     ///< Name of the connection.
     QSqlDatabase *dBase;                          ///< Pointer to the database driver.
     std::unique_ptr<QSqlQuery> sqlQuery;
-    GCL::sqlWriter sqlWriter;         ///< The mapped SQL writer that the instances can customise and use.
+    GCL::sqlWriter sqlWriter;                     ///< The mapped SQL writer that the instances can customise and use.
 
     virtual bool createConnection(QString const &, QString const &, std::uint16_t, QString const &, QString const &, QString const &);
     virtual bool createConnectionODBC(QString const &, QString const &);
@@ -98,8 +98,6 @@ namespace QCL
     virtual bool MySQL() = 0;
     virtual bool SQLite() = 0;
     virtual bool PostgreSQL() = 0;
-
-    void processErrorInformation() const;
 
   public:
     class SDatabaseDriver
@@ -125,6 +123,7 @@ namespace QCL
     virtual bool connectToDatabase(QString const &);
 
     void readMapFile(boost::filesystem::path const &mfn);
+    void processErrorInformation(QSqlQuery const &) const;
   };
 
 } // namespace QCL
