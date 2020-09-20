@@ -54,12 +54,6 @@ namespace QCL
       return returnValue;
     }
 
-    template<typename T>
-    void associateControl(T *childPointer, QString const &childName)
-    {
-      childPointer = findChild<T*>(childName);
-    }
-
   public:
     CDialog(QObject * = nullptr);
     CDialog(QString, QObject * = nullptr);
