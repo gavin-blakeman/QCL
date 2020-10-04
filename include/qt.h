@@ -4,7 +4,7 @@
 // FILE:			          Qt
 // SUBSYSTEM:           Qt headers
 // TARGET OS:	          WINDOWS, LINUX, UNIX, MAC
-// NAMESPACE:						AstroManager::photometry
+// NAMESPACE:						QCL
 // AUTHOR:              Gavin Blakeman
 // LICENSE:             GPLv2
 //
@@ -50,10 +50,22 @@
 #if QT_VERSION >= 0x050000
 #include <QAbstractTableModel>
 #include <QDateTime>
+#include <QList>
+#include <QMap>
 #include <QtPlugin>
+
+#include <QtGui/QtGui>
+
+#include <QtNetwork/QtNetwork>
+#include <QtNetwork/QNetworkAccessManager>
+
 #include <QtPrintSupport/QPrinter>
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrintPreviewDialog>
+
+#include <QtSql>
+#include <QtSql/QSqlError>
+
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
@@ -100,11 +112,7 @@
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
-#include <QtGui/QtGui>
-#include <QtNetwork/QtNetwork>
-//#include <QNetworkAccessManager>
-#include <QtSql>
-#include <QtSql/QSqlError>
+
 #include <QtUiTools/QUiLoader>
 #else
 #include <Qt>
@@ -145,5 +153,6 @@
 #define ASSOCIATE_SPINBOX(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QSpinBox)
 #define ASSOCIATE_TABLEVIEW(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableView)
 #define ASSOCIATE_TABLEWIDGET(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QTableWidget)
+#define ASSOCIATE_TOOLBUTTON(POINTERNAME, WIDGET, CONTROLNAME) ASSOCIATE_CONTROL(POINTERNAME, WIDGET, CONTROLNAME, QToolButton)
 
 #endif // QT_H

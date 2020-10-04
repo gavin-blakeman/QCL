@@ -28,10 +28,12 @@
 //
 // CLASSES INCLUDED:    None
 //
-// HISTORY:             2018-06-28/GGB - File created.
+// HISTORY:             2020-10-04  GGB - Added fileDownloadManager
+//                      2018-06-28  GGB - File created.
 //
 //*********************************************************************************************************************************
 
 #include "include/database.h"
 #include "include/dialog.h"
+#include "include/fileDownloadManager.h"
 #include "include/qt.h"

@@ -1,8 +1,8 @@
 ﻿//**********************************************************************************************************************************
 //
 // PROJECT:             QCL
-// FILE:			          Qt
-// SUBSYSTEM:           Dialog extension
+// FILE:			          fileDownloadManager
+// SUBSYSTEM:           Download files from a URL
 // TARGET OS:	          WINDOWS, LINUX, UNIX, MAC
 // NAMESPACE:						QCL
 // AUTHOR:              Gavin Blakeman
@@ -24,47 +24,64 @@
 //
 // OVERVIEW:
 //
-// CLASSES:		          CDialog
+// CLASSES:
 //
-// HISTORY:             2020-09-19 GGB - File created. (Code moved from dialogs in astroManager.)
+// HISTORY:             2020-10-03 GGB - File created.
 //
 //**********************************************************************************************************************************
 
-#ifndef QCL_DIALOG_H
-#define QCL_DIALOG_H
+#ifndef FILEDOWNLOADMANAGER_H
+#define FILEDOWNLOADMANAGER_H
 
-#include "qt.h"
+  // C++ standard library header files
+
+#include <cstdint>
+#include <functional>
+
+  // Miscellaneous library header files
+
+#include "boost/filesystem.hpp"
+
+  // QCL library header files
+
+#include "include/qt.h"
 
 namespace QCL
 {
-  class CDialog : public QObject
+  class CFileDownloadManager: public QObject
   {
     Q_OBJECT
 
-  private:
-  protected:
-    QDialog *dlg;
+  public:
+    using callback_fn = std::function<void(std::uint32_t, QNetworkReply *)>;
 
-    template<typename T>
-    T findChild(const QString &childName)
+    struct SDownloadData
     {
-      T returnValue = dlg->findChild<T>(childName);
-      RUNTIME_ASSERT(returnValue != nullptr, "Control " + childName.toStdString() + " not found." );
+      std::uint32_t uniqueID;
+      boost::filesystem::path filename;                                     ///< Filename to save as
+      callback_fn successCallback;
+      callback_fn errorCallback;
+    };
 
-      return returnValue;
-    }
+  private:
+    QNetworkAccessManager networkManager;
+    QMap<QNetworkReply *, SDownloadData> currentDownloads;
+    static std::uint32_t downloadUID;                   ///< Unique ID supplied to the calling routine to seperate download calls.
+
+  protected:
+    bool saveToDisk(QString const &filename, QIODevice *data);
 
   public:
-    CDialog(QObject * = nullptr);
-    CDialog(QString, QObject * = nullptr);
-    ~CDialog();
+    CFileDownloadManager();
 
-    virtual int exec();
+    std::uint32_t startDownload(QUrl const &, boost::filesystem::path const &, callback_fn, callback_fn);
 
-//  public slots:
-//    virtual void accepted() {}
-//    virtual void rejected() { std::cout << "CDialog::rejected called" << std::endl; }
+  public slots:
+    void finished(QNetworkReply *reply);
+    void sslErrors(const QList<QSslError> &errors);
   };
-}
 
-#endif // QCL_DIALOG_H
+
+} // namespace QCL
+
+#endif // FILEDOWNLOADMANAGER_H

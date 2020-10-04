@@ -48,12 +48,14 @@ INCLUDEPATH += \
 SOURCES += \
     source/database.cpp \
     source/common.cpp \
-    source/dialog.cpp
+    source/dialog.cpp \
+    source/fileDownloadManager.cpp
 
 HEADERS += \
     include/database.h \
     include/qt.h \
     QCL \
     include/common.h \
-    include/dialog.h
+    include/dialog.h \
+    include/fileDownloadManager.h
 

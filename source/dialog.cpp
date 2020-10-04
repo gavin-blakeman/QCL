@@ -4,7 +4,7 @@
 // FILE:			          Qt
 // SUBSYSTEM:           Dialog extension
 // TARGET OS:	          WINDOWS, LINUX, UNIX, MAC
-// NAMESPACE:						AstroManager::photometry
+// NAMESPACE:						QCL
 // AUTHOR:              Gavin Blakeman
 // LICENSE:             GPLv2
 //
@@ -24,7 +24,7 @@
 //
 // OVERVIEW:
 //
-// CLASSES:		          CDialog
+// CLASSES:
 //
 // HISTORY:             2020-09-19 GGB - File created. (Code moved from dialogs in astroManager.)
 //
