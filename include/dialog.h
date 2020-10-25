@@ -35,6 +35,8 @@
 
 #include "qt.h"
 
+#include <GCL>
+
 namespace QCL
 {
   class CDialog : public QObject
@@ -49,7 +51,7 @@ namespace QCL
     T findChild(const QString &childName)
     {
       T returnValue = dlg->findChild<T>(childName);
-      RUNTIME_ASSERT(returnValue != nullptr, "Control " + childName.toStdString() + " not found." );
+      RUNTIME_ASSERT(returnValue != nullptr, "Control " + childName.toStdString() + " not found.");
 
       return returnValue;
     }

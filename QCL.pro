@@ -6,19 +6,13 @@
 
 TARGET = QCL
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib create_prl
 
 QT += sql
 
-QMAKE_CXXFLAGS += -std=c++17 -static -static-libgcc #-save-temps=obj
-QMAKE_LFLAGS += -fopenmp
+QMAKE_CXXFLAGS += -std=c++17
 
 DEFINES += BOOST_CHRONO_DONT_PROVIDES_DEPRECATED_IO_SINCE_V2_0_0
-
-OBJECTS_DIR = "objects"
-UI_DIR = "objects/ui"
-MOC_DIR = "objects/moc"
-RCC_DIR = "objects/rcc"
 
 win32:CONFIG(release, debug|release) {
   DESTDIR = "../Library/win32/release"
@@ -37,10 +31,8 @@ else:unix:CONFIG(debug, debug|release) {
   OBJECTS_DIR = "objects"
 }
 
-QMAKE_CXXFLAGS += -std=c++17
-
 INCLUDEPATH += \
-  "../boost 1.62" \
+  "/home/gavin/Documents/Projects/software/Library/Boost/boost_1_71_0" \
   "../GCL" \
   "../MCL" \
   "../SCL"
