@@ -50,6 +50,7 @@
 #if QT_VERSION >= 0x050000
 #include <QAbstractTableModel>
 #include <QDateTime>
+#include <QFileSystemWatcher>
 #include <QList>
 #include <QMap>
 #include <QtPlugin>
