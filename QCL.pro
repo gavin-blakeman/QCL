@@ -10,7 +10,7 @@ CONFIG += staticlib create_prl
 
 QT += sql
 
-QMAKE_CXXFLAGS += -std=c++17
+QMAKE_CXXFLAGS += -std=c++20
 
 DEFINES += BOOST_CHRONO_DONT_PROVIDES_DEPRECATED_IO_SINCE_V2_0_0
 

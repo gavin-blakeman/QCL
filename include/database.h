@@ -9,7 +9,7 @@
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2012-2020 Gavin Blakeman.
+//                      Copyright 2012-2022 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -45,6 +45,7 @@
 
   // Standard C++ library header files
 
+#include <filesystem>
 #include <list>
 #include <map>
 #include <memory>
@@ -122,7 +123,7 @@ namespace QCL
 
     virtual bool connectToDatabase(QString const &);
 
-    void readMapFile(boost::filesystem::path const &mfn);
+    void readMapFile(std::filesystem::path const &mfn);
     void processErrorInformation(QSqlQuery const &) const;
   };
 

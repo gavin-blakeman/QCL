@@ -9,7 +9,7 @@
 // AUTHOR:              Gavin BLakeman (GGB)
 // LICENSE:             GPLv2
 //
-//                      Copyright 2012-2020 Gavin Blakeman.
+//                      Copyright 2012-2022 Gavin Blakeman.
 //                      This file is part of the Qt Class Library (QCL)
 //
 //                      QCL is free software: you can redistribute it and/or modify it under the terms of the GNU General
@@ -62,21 +62,21 @@ namespace QCL
   //
   //*****************************************************************************************************************************
 
-  /// @brief Constructor for the database class.
-  /// @param[in] connectionName: The name of the connection associated with the database.
-  /// @throws None
-  /// @version 2017-06-20/GGB - Function created.
+  /// @brief      Constructor for the database class.
+  /// @param[in]  connectionName: The name of the connection associated with the database.
+  /// @throws     None
+  /// @version    2017-06-20/GGB - Function created.
 
   CDatabase::CDatabase(QString const &connectionName) : szConnectionName(connectionName), dBase(nullptr)
   {
   }
 
-  /// @brief Creates a connection to the database by calling the relevant functions.
-  /// @param[in] szDatabase: Database driver string to use.
-  /// @returns true - Connection created
-  /// @returns false - The driver type is not supported.
-  /// @throws None.
-  /// @version 2017-07-01/GGB - Function created.
+  /// @brief      Creates a connection to the database by calling the relevant functions.
+  /// @param[in]  szDatabase: Database driver string to use.
+  /// @returns    true - Connection created
+  /// @returns    false - The driver type is not supported.
+  /// @throws     None.
+  /// @version    2017-07-01/GGB - Function created.
 
   bool CDatabase::connectToDatabase(QString const &szDatabase)
   {
@@ -348,7 +348,7 @@ namespace QCL
   /// @version    2018-09-28/GGB - Moved into CDatabase.
   /// @version    2013-01-26/GGB - Function created.
 
-  void CDatabase::readMapFile(boost::filesystem::path const &mfn)
+  void CDatabase::readMapFile(std::filesystem::path const &mfn)
   {
     sqlWriter.readMapFile(mfn);
   }
